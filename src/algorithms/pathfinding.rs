@@ -14,14 +14,14 @@ pub fn find_path<N>(
     let mut reached = HashMap::new();
     let mut costs = HashMap::new();
     
-    frontier.push((start, 0).into());
+    frontier.push(start, 0.0f64);
     reached.insert(start, None);
-    costs.insert(start, 0);
+    costs.insert(start, 0.0f64);
 
     while frontier.len() > 0 {
         let frontier_item = frontier.pop().unwrap();
         
-        let current_tile = frontier_item.item;
+        let current_tile = frontier_item;
         if current_tile == end {
             break;
         }
@@ -34,7 +34,7 @@ pub fn find_path<N>(
                 || cost < *costs.get(&next_tile).unwrap() 
             {
                 costs.insert(next_tile, cost);
-                frontier.push((next_tile, cost).into());
+                frontier.push(next_tile, cost);
                 reached.insert(next_tile, Some(current_tile));
             }
             
